@@ -1,0 +1,172 @@
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(182, 182, 182);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+.page {
+  min-height: 520px;
+
+  .page-header {
+    margin-bottom: 20px;
+
+    .title {
+      color: #444444;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #d8d6d6;
+
+      .sub-title {
+        font-size: 12px;
+        color: #d8d6d6;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .content-page {
+    .exam-desktop {
+      display: block;
+
+      .exam-item {
+        padding: 15px;
+        border: 1px solid #d8d6d6;
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0);
+        transition: all 0.5s ease;
+
+        &:hover {
+          box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+        }
+      }
+    }
+  }
+}
+
+.page_link {
+  cursor: pointer;
+}
+
+.text {
+  margin-bottom: 10px;
+}
+
+.no-data {
+  text-align: center;
+  display: block;
+  margin-top: 140px;
+  margin-bottom: 140px;
+}
+
+#student,
+#subject {
+  margin-bottom: 25px;
+}
+
+@media (min-width: 1199px) {
+  #student,
+  #subject {
+    .card {
+      min-height: 530px;
+    }
+  }
+}
+
+#notification {
+  width: 390px;
+
+  .notification-item {
+    white-space: normal;
+    padding-left: 70px;
+    padding-right: 15px;
+    position: relative;
+
+    .notification-thumbnail {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .notification-item-content {
+      padding-left: 0;
+      width: 100%;
+
+      .notification-text {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+.logo-link {
+  background: -webkit-linear-gradient(#1bbdfb, #1ea1ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  i {
+    padding-right: 5px;
+  }
+}
+
+.view-all,
+.view-all[href] {
+  display: inline-block;
+  color: #fff !important;
+
+  &:hover {
+    background-color: #1cb2f6;
+    border-color: #1cb2f6;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .logo-book {
+    i {
+      background: -webkit-linear-gradient(#1bbdfb, #1ea1ee);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+}
+
+@media screen and (max-width: 675px) {
+  .content-wrapper {
+    padding: 15px;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  #notification {
+    width: 300px;
+  }
+
+  .page {
+    .content-page {
+      .exam-mobile {
+        .exam-item {
+          .exam-item__head {
+            .title {
+              .status {
+                font-size: 11px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

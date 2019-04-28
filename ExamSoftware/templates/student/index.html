@@ -1,0 +1,97 @@
+{% extends 'student/base.html' %}
+
+{% block title %}
+Trang chủ
+{% endblock title %}
+
+
+{% block content %}
+
+{% if notifi %}
+<div id="notifi-pages" style="margin-bottom: 15px;display: flex;align-items: center;">
+    <marquee behavior="" direction="">
+
+        {% for item in notifi %}
+        <span style="margin-right: 500px;">{{item.content}}</span>
+        {% endfor %}
+
+    </marquee>
+</div>
+{% endif %}
+
+<div class="row">
+    <div class="col-xl-8">
+        <div id="student">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="title">Danh sách các đợt thi trong ngày</h5>
+
+                    {% if get_batchs %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Tên đợt</th>
+                                    <th>Từ</th>
+                                    <th>Đến</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {% for item in get_batchs %}
+                                <tr id="row_{{item.id}}" class="page_link" href="{% url 'student:join' %}">
+                                    <td>{{item.stt}}</td>
+                                    <td>{{item.batch_name}}</td>
+                                    <td>{{item.time_from|date:"d-m-Y h:i"}}</td>
+                                    <td>{{item.time_to|date:"d-m-Y h:i"}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <span class="no-data">Hiện tại không có đợt thi nào !!!</span>
+                    {% endif %}
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4">
+        <div id="subject">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="title">Danh sách các môn trong đợt thi</h5>
+
+                    {% if remove_duplicate %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Tên môn</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {% for item in remove_duplicate %}
+                                <tr id="row_{{item.id}}">
+                                    <td>{{item.stt}}</td>
+                                    <td>{{item.subject_name}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <span class="no-data">Hiện tại không có môn nào thuộc đợt này !!!</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

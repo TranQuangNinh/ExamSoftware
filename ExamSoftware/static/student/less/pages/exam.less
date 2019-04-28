@@ -1,0 +1,212 @@
+.Time {
+  font-size: 15px;
+
+  #countdown {
+    font-style: italic;
+    font-weight: 700;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.img-question {
+  max-height: 250px;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+.QA {
+  position: relative;
+  .QA-item {
+    border-bottom: 1px solid #d8d6d6;
+    margin-bottom: 10px;
+
+    &:last-child {
+      border: none;
+    }
+
+    .header_QA {
+      .question {
+        .question_number {
+          font-size: 16px;
+          padding-bottom: 10px;
+          margin-bottom: 5px;
+          border-bottom: 1px solid #d8d6d6;
+          font-weight: bold;
+          .name_question {
+            font-weight: normal;
+          }
+        }
+      }
+    }
+
+    .content_QA {
+      .answer {
+        .form-group {
+          .answer-item {
+            display: table;
+
+            .text_answer {
+              margin: 0;
+              display: flex;
+              position: relative;
+              align-items: center;
+              font-size: 16px;
+              &:hover {
+                .choose_Answer {
+                  border-color: rgba(0, 188, 212, 0.5);
+                  &:after {
+                    background: rgba(0, 188, 212, 0.5);
+                  }
+                }
+              }
+
+              input[type="radio"] {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                z-index: 1;
+                cursor: pointer;
+              }
+
+              &.active {
+                color: #03bdd5;
+              }
+
+              &.error {
+                color: #ea1b1b;
+              }
+
+              .choose_Answer {
+                cursor: pointer;
+                display: inline-block;
+                min-width: 20px;
+                max-width: 20px;
+                height: 20px;
+                border-radius: 100%;
+                position: relative;
+                border: 3px solid #eaeaea;
+                margin-right: 10px;
+
+                &:after {
+                  display: block;
+                  content: "";
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                  width: 60%;
+                  height: 60%;
+                  border-radius: 100%;
+                }
+                &.active {
+                  border-color: #00bcd4;
+                  &:after {
+                    background: #00bcd4;
+                  }
+                }
+
+                &.error {
+                  border-color: #ea1b1b;
+                  &:after {
+                    background: #ea1b1b;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.btn-custom {
+  border: 1px solid #00bcd4;
+  color: #00bcd4;
+  background: 0 0;
+  padding: 0.56rem 10px;
+  min-width: 90px;
+  &:hover {
+    background: #00bcd4;
+    color: #fff;
+  }
+}
+
+.status {
+  padding: 5px 10px;
+  color: #fff;
+  border-radius: 3px;
+
+  &.open-subject {
+    background: #00bcd4;
+  }
+
+  &.close-subject {
+    background: #f34733;
+  }
+}
+
+.start-link {
+  color: #000;
+  text-decoration: none;
+
+  &:hover {
+    color: #00bcd4;
+    text-decoration: none;
+  }
+}
+
+.disabled {
+  pointer-events: none !important;
+  cursor: default !important;
+}
+
+.modal {
+  .modal-dialog {
+    .modal-content {
+      .modal-body {
+        text-align: center;
+
+        h5 {
+          font-size: 30px;
+          margin-top: 20px;
+          margin-bottom: 20px;
+          font-weight: bold;
+        }
+        p {
+          font-size: 20px;
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
+}
+
+#modal-result {
+  &:after {
+    content: "";
+    display: block;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .QA {
+    .QA-item {
+      .header_QA {
+        .question {
+          .question_number {
+            font-size: 15px;
+          }
+        }
+      }
+    }
+  }
+  .mjx-chtml {
+    font-size: 100% !important;
+  }
+}

@@ -1,0 +1,38 @@
+.reg {
+    width: 100%;
+    margin: 0 auto;
+
+    .container-reg {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        padding: 15px;
+        background: #f2f2f2;
+
+        .wrap-reg {
+            width: 700px;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 77px 55px 33px 55px;
+            box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+
+            .reg-form {
+
+                .wrap-reg-form-btn {
+                    max-width: 290px;
+                }
+            }
+        }
+    }
+}
+
+
+@media only screen and (max-width:575px) {
+    .reg .container-reg .wrap-reg {
+        padding: 45px 20px 35px 20px;
+    }
+}
