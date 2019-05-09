@@ -1,0 +1,12 @@
+{% extends 'student/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+Page Error
+{% endblock title %}
+
+{% block content %}
+<div class="error error-404">
+    <img src="{% static 'student/images/404.jpg' %}" alt="" class="img-fluid">
+</div>
+{% endblock content %}

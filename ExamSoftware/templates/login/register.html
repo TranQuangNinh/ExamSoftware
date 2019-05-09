@@ -1,0 +1,153 @@
+{% extends 'login/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+Đăng ký
+{% endblock title %}
+
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'student/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'student/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<link rel="stylesheet" href="{% static 'student/css/util.css' %}">
+<link rel="stylesheet" href="{% static 'student/css/material-design-iconic-font.min.css' %}">
+<link rel="stylesheet" href="{% static 'student/css/datepicker.min.css' %}">
+<link rel="stylesheet" href="{% static 'student/css/login.css' %}">
+<link rel="stylesheet" href="{% static 'student/css/main.css' %}">
+<link rel="stylesheet" href="{% static 'student/css/errors.css' %}">
+{% endblock css %}
+
+
+{% block content %}
+<div class="reg" id="register">
+    <div class="container-reg">
+        <div class="wrap-reg">
+            <form class="reg-form validate-form" method="POST">
+                {% csrf_token %}
+                <span class="login100-form-title reg-form-title p-b-26">
+                    Welcome
+                </span>
+                <span class="login100-form-title reg-form-title p-b-48">
+                    <i class="zmdi zmdi-font"></i>
+                </span>
+                {% if form.errors %}
+                <div class="show_errors">
+                    {% for field in form %}
+                    {% for error in field.errors %}
+                    <p class="errors">{{error}}</p>
+                    {% endfor %}
+                    {% endfor %}
+                </div>
+
+                {% endif %}
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="wrap-input100 validate-input" data-validate="Tên không hợp lệ">
+                            <label class="label100" for="">Tên đăng nhập</label>
+                            {{form.username}}
+                            <span class="focus-input100"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="wrap-input100 validate-input">
+                            <label class="label100" for="">Email</label>
+                            {{form.email}}
+                            <span class="focus-input100"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="wrap-input100 validate-input">
+                            <label class="label100" for="">Họ</label>
+                            {{form.first_name}}
+                            <span class="focus-input100"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="wrap-input100 validate-input">
+                            <label class="label100" for="">Tên</label>
+                            {{form.last_name}}
+                            <span class="focus-input100"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" id="box-password">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="wrap-input100 validate-input" data-validate="Nhập mật khẩu">
+                                    <label class="label100" for="">Mật khẩu</label>
+                                    {{form.password}}
+                                    <span class="focus-input100"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="label100" for="">Xác nhận</label>
+                                <div class="wrap-input100 validate-input" data-validate="Xác nhận mật khẩu không đúng">
+                                    <span class="btn-show-pass">
+                                        <i class="zmdi zmdi-eye-off"></i>
+                                    </span>
+                                    {{form.confirm_password}}
+                                    <span class="focus-input100" data-placeholder="Xác nhận mật khẩu"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="wrap-input100 validate-input">
+                            <label class="label100" for="">Ngày sinh</label>
+                            {{form.birth_day}}
+                            <span class="focus-input100"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="wrap-input100 validate-input">
+                            <label class="label100" for="">Số điện thoại</label>
+                            {{form.phone_number}}
+                            <span class="focus-input100"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="wrap-input100 validate-input">
+                            <label class="label100" for="">Địa chỉ</label>
+                            {{form.address}}
+                            <span class="focus-input100"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <div class="wrap-reg-form-btn wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <button class="login100-form-btn">
+                            Đăng ký
+                        </button>
+                    </div>
+                </div>
+
+                <div class="text-center p-t-115">
+                    <span class="txt1">
+                        Bạn đã có tài khoản?
+                    </span>
+
+                    <a class="txt2" href="{% url 'student:login' %}">
+                        Đăng nhập
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+
+{% block script %}
+<script src="{% static 'student/js/datepicker.min.js' %}"></script>
+<script src="{% static 'student/js/regex.js' %}"></script>
+<script src="{% static 'student/js/validate.js' %}"></script>
+<script>
+    $('[data-toggle="datepicker"]').datepicker({
+        format: 'dd-MM-YYYY'
+    });
+</script>
+{% endblock script %}

@@ -1,0 +1,104 @@
+{% extends 'student/base.html' %}
+
+
+{% block title %}
+Kết quả thi
+{% endblock title %}
+
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <div class="page">
+            <div class="page-header">
+                <h5 class="title">Kết quả <span class="sub-title">Danh sách kết quả thi</span></h5>
+            </div>
+            <div class="content-page">
+                <div class="result">
+
+                    {% if len_exam_result %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Tên bài thi</th>
+                                    <th>Môn thi</th>
+                                    <th>Thời gian thi</th>
+                                    <th>Số câu đúng</th>
+                                    <th>Điểm</th>
+                                    <th>Chức năng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in exams_results %}
+
+                                {% for exam in exams %}
+
+                                {% if item.exam_id == exam.id %}
+
+                                <tr id="row_{{item.id}}" class="page_link"
+                                    href="{% url 'student:result_detail' item.id item.key %}">
+                                    <td>{{item.stt}}</td>
+                                    <td>{{exam.exam_name}}</td>
+                                    <td>{{exam.subject}}</td>
+                                    <td>{{item.date|date:"d-m-Y H:i"}}</td>
+                                    <td>{{item.total_correct_question}}</td>
+                                    <td>{{item.point}}</td>
+                                    <td>
+                                        <a href="{% url 'student:result_detail' item.id item.key %}"
+                                            class="btn btn-view" title="Xem chi tiết"><i class="fas fa-eye"></i></a>
+                                    </td>
+                                </tr>
+
+                                {% endif %}
+
+                                {% endfor %}
+
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <ul class="pagination">
+                        {% if exams_results.has_previous %}
+                        <li class="pagination-item"><a class="pagination-item__link pagination-item__action"
+                                href="?page=1"><i class="fas fa-angle-double-left"></i></a></li>
+                        <li class="pagination-item"><a class="pagination-item__link pagination-item__action"
+                                href="?page={{ exams_results.previous_page_number }}"><i
+                                    class="fas fa-angle-left"></i></a></li>
+                        {% endif %}
+
+
+                        {% for num in exams_results.paginator.page_range %}
+
+                        {% if exams_results.number == num %}
+                        <li class="pagination-item"><a class="pagination-item__link pagination-item__current"
+                                href="">{{num}}</a></li>
+                        {% elif num > exams_results.number|add:'-3' and num < exams_results.number|add:'3' %}
+                        <li class="pagination-item"><a class="pagination-item__link" href="?page={{num}}">{{num}}</a>
+                        </li>
+
+                        {% endif %}
+
+                        {% endfor %}
+                        <!-- Page {{ exams_results.number }} of {{ exams_results.paginator.num_pages }}. -->
+
+                        {% if exams_results.has_next %}
+                        <li class="pagination-item"><a class="pagination-item__link pagination-item__action"
+                                href="?page={{ exams_results.next_page_number }}"><i class="fas fa-angle-right"></i></a>
+                        </li>
+                        <li class="pagination-item"><a class="pagination-item__link pagination-item__action"
+                                href="?page={{ exams_results.paginator.num_pages }}"><i
+                                    class="fas fa-angle-double-right"></i></a></li>
+
+                        {% endif %}
+                    </ul>
+                    {% else %}
+                    <span class="no-data">Hiện tại bạn chưa có kết quả thi !!!</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        {% load staticfiles %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>
+            {% block title %}
+
+            {% endblock title %}
+        </title>
+        <link rel="icon" type="image/png" href="{% static 'student/images/icons/favicon.ico' %}">
+
+
+        {% block css %}
+
+        {% endblock css %}
+
+    </head>
+
+    <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+
+        {% block content %}
+
+        {% endblock content %}
+
+
+        <script src="{% static 'student/js/jquery-3.3.1.js' %}"></script>
+        <script src="{% static 'student/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'student/js/login.js' %}"></script>
+        <script src="{% static 'student/js/main.js' %}"></script>
+        <script src="{% static 'student/js/disable.js' %}"></script>
+
+        {% block script %}
+
+        {% endblock script %}
+    </body>
+
+</html>

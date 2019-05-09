@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        {% load staticfiles %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Page Error</title>
+        <link rel="stylesheet" href="{% static 'student/css/style.css' %}" />
+        <link rel="stylesheet" href="{% static 'student/css/main.css' %}" />
+    </head>
+
+    <body>
+        <div class="error error-500">
+            <img src="{% static 'student/images/500.jpg' %}" alt="" class="img-fluid">
+            <a href="{% url 'student:index' %}" class="btn btn-outline-primary">Quay lại trang chủ</a>
+        </div>
+    </body>
+
+</html>
