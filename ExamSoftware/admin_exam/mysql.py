@@ -1,0 +1,6 @@
+ENGINE = 'django.db.backends.mysql'
+NAME = 'exam_software'
+USER = 'NinhTQ'
+PASSWORD = 'Ninhtq17121997'
+HOST = 'localhost'
+PORT = '3306'
