@@ -72,9 +72,6 @@ def check_show_notification():
             i.save()
 
 
-#########################################
-
-
 # Errors
 
 
@@ -110,13 +107,39 @@ def error_500(request):
     return render(request, 'errors/500.html')
 
 
+
+def Feedback(request):
+    get_user = User.objects.all()
+    get_user_info = UserInfo.objects.all()
+
+    check_show_notification()
+
+    ######################################
+    notifi = []
+
+    batch_notifi = Batch.objects.filter(show_notifi=True).order_by('-id')
+
+    for _notifi in batch_notifi:
+        notifi.append(_notifi)
+
+    len_notifi = len(notifi)
+    ######################################
+    context = {
+        'get_user': get_user,
+        'get_user_info': get_user_info,
+        'menu': menu,
+        'notifi': notifi,
+        'len_notifi': len_notifi,
+        'batch_notifi': batch_notifi,
+    }
+    return render(request, 'student/feedback.html', context)
+
 # Trang chủ
 
 
 class HomeView(View):
 
     def get(self, request):
-
         get_user = User.objects.all()
         get_user_info = UserInfo.objects.all()
 
@@ -917,7 +940,7 @@ class ForgotPasswordView(View):
                     subject = 'ExamSoftware xin chào bạn !'
                     from_email = settings.EMAIL_HOST_USER
                     to_list = [get_email]
-                    message = 'Cảm ơn bạn đã đăng ký và sử dụng phần mềm. \nBạn đã sử dụng chức năng quên mật khẩu để lấy lại mật khẩu. \nTài khoản bạn muốn lấy lại mật khẩu là: %s \nVui lòng đăng nhập lại bằng mật khẩu sau: %s' % (
+                    message = 'Cảm ơn bạn đã đăng ký và sử dụng phần mềm. \nBạn đã sử dụng chức năng lấy lại mật khẩu. \nTài khoản bạn muốn lấy lại mật khẩu là: %s \nVui lòng đăng nhập lại bằng mật khẩu sau: %s' % (
                         username, new_password)
 
                     send_mail(
