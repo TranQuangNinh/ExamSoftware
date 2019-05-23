@@ -20,6 +20,7 @@ urlpatterns = [
          NotificationDetailView, name='notif_detail'),
     path('profile/', ProfileView.as_view(), name='profile'),
     path('avatar/', UpdateAvatar, name='avatar'),
+    path('feedback/', Feedback, name='feedback'),
     path('profile_update/', ProfileUpdateView.as_view(), name='profile_update'),
     path('change-password/', ChangePassView.as_view(), name='change_pass'),
     #     path('error-404/', error_404, name='error_404'),

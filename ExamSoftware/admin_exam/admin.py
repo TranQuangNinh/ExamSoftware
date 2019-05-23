@@ -30,11 +30,12 @@ class RoleAdmin(ImportExportModelAdmin):
 class ResultAdmin(ExportMixin, admin.ModelAdmin):
     list_display = ['user', 'exam', 'question', 'choose_answer']
     search_fields = ['user__first_name', 'user__last_name', 'exam__exam_name']
-    fieldsets = (
-        (None, {
-            'fields': ('user', 'exam')
-        }),
-    )
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 class QuestionAdmin(ImportExportModelAdmin):
@@ -68,11 +69,12 @@ class ExamResultAdmin(ExportMixin, admin.ModelAdmin):
     list_display = ['user', 'exam', 'total_correct_question', 'point', 'rank']
     search_fields = ['user__first_name', 'user__last_name',
                      'exam__exam_name', 'total_correct_question', 'point', 'rank']
-    fieldsets = (
-        (None, {
-            'fields': ('user', 'exam', 'date', 'total_correct_question', 'point', 'rank')
-        }),
-    )
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 class BatchResource(resources.ModelResource):
