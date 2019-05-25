@@ -175,7 +175,14 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/Taylor.js");
                                             <p class="text ">Đáp án bạn chọn:
 
                                                 {% if result.choose_answer != 0 %}
-                                                <span class="text-normal">{{result.choose_answer}}</span>
+                                                {% for answer in answers %}
+
+                                                {% if answer.id == result.choose_answer %}
+                                                <span class="text-normal">{{answer.answer_name|safe|capfirst}}</span>
+                                                {% endif %}
+
+                                                {% endfor %}
+
                                                 {% else %}
                                                 <span class="text-normal">$$\varnothing$$</span>
                                                 {% endif %}

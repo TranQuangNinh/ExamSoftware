@@ -305,6 +305,16 @@ class StartTestView(LoginRequiredMixin, View):
             array_choose_question[item].stt = item + 1
             array_choose_question[item].save()
 
+        # Đảo vị trí đáp án
+
+        # choose_random_answer = []
+        # for item in array_choose_question:
+        #     for answer in list_answer:
+        #         if item.id == answer.question_id:
+        #             choose_random_answer.append(answer)
+
+        # random.shuffle(choose_random_answer)
+
         context = { 
             'get_user': get_user,
             'get_user_info': get_user_info,
@@ -316,6 +326,7 @@ class StartTestView(LoginRequiredMixin, View):
             'batch_notifi': batch_notifi,
             'list_question': list_question,
             'list_answer': list_answer,
+            # 'choose_random_answer': choose_random_answer, # Đảo vị trí đáp án
             'array_choose_question': array_choose_question,
             'length_array_question': length_array_question,
         }
@@ -471,6 +482,7 @@ def DetailResultView(request, id, key):
 
     len_notifi = len(notifi)
     ######################################
+    
 
     exams = Exam.objects.all()
 
@@ -480,6 +492,8 @@ def DetailResultView(request, id, key):
     get_key_exam_result = key
 
     results = Result.objects.filter(key=key)
+    
+    answers = Answer.objects.all()
     
     correct_answer = Answer.objects.filter(correct_answer = True)
 
@@ -516,6 +530,7 @@ def DetailResultView(request, id, key):
         'exams': exams, 
         'exam_result': exam_result,
         'get_key_exam_result':get_key_exam_result,
+        'answers': answers,
         'list_answer_true':list_answer_true,
         'list_answer_false':list_answer_false,
         'get_question':get_question,

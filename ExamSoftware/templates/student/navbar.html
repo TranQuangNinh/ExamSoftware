@@ -9,7 +9,7 @@
         </a>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-center">
-        <div class="software-name d-none d-sm-inline-block">
+        <div class="software-name d-none d-md-inline-block">
             <h4 class="text m-0">Phần mềm thi trắc nghiệm</h4>
         </div>
         {% if length_array_question %}
@@ -18,7 +18,7 @@
             <span id="countdown"></span>
         </div>
         {% endif %}
-        <div class="navbar-item d-flex" style="margin-left: auto;">
+        <div class="navbar-item d-flex navbar-right">
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="{% url 'student:feedback' %}" title="Phản hổi"><i
                             class="far fa-question-circle"></i></a>

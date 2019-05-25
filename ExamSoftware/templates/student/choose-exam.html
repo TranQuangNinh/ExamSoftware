@@ -33,7 +33,7 @@ Tham gia thi
                             <tbody>
 
                                 {% for item in gets_exams %}
-                                <tr id="{{item.id}}" class="page_link" href="{% url 'student:start' item.id %}">
+                                <tr id="row_{{item.id}}" class="page_link" href="{% url 'student:start' item.id %}">
                                     <td>{{item.stt}}</td>
                                     <td>{{item.subject}}</td>
                                     <td>{{item.total_time_to_do_exam}} phút</td>
