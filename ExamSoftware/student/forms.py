@@ -37,7 +37,7 @@ class RegisterForm(forms.Form):
         widget=forms.TextInput(attrs={
             'class': "input100",
             'type': "text",
-            'name': "username"
+            'name': "username",
         }))
     email = forms.CharField(
         max_length=50,
@@ -103,7 +103,7 @@ class RegisterForm(forms.Form):
 
     def clean_username(self):
         username = self.cleaned_data['username']
-        if re.search(r'^\W+$', username):
+        if re.search(r'\W', username):
             raise forms.ValidationError(
                 "Tên tài khoản được có ký tự đặc biệt !!!")
         try:
@@ -111,6 +111,13 @@ class RegisterForm(forms.Form):
         except ObjectDoesNotExist:
             return username
         raise forms.ValidationError("Tài khoản đã tồn tại !!!")
+
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data['phone_number']
+        if re.search(r'\D', phone_number):
+            raise forms.ValidationError(
+                "Số điện thoại không được có chữ hoặc ký tự đặc biệt !!!")
+        return phone_number
 
     def save(self):
         User.objects.create_user(

@@ -25,4 +25,5 @@ urlpatterns = [
     path('change-password/', ChangePassView.as_view(), name='change_pass'),
     #     path('error-404/', error_404, name='error_404'),
     #     path('error-500/', error_500, name='error_500'),
+    #     path('handle_test/', handle_test, name='handle_test'),
 ]

@@ -20,6 +20,7 @@ from django.core.files.storage import FileSystemStorage
 import json
 import time
 from django.core.paginator import Paginator
+import os
 
 # Create your views here.
 menu = Menu.objects.all()
@@ -99,13 +100,42 @@ def error_404(request, exception):
         'notifi': notifi,
         'len_notifi': len_notifi,
         'batch_notifi': batch_notifi,
-     }
+    }
     return render(request, 'errors/404.html', context)
 
 
 def error_500(request):
     return render(request, 'errors/500.html')
 
+
+# Xử lý dữ liệu nếu mất điện
+
+
+# def handle_test(request):
+#     body_unicode = munchify(request.body.decode('utf-8'))
+#     body_data = json.loads(body_unicode)
+#     exam = body_data.get('id_exam')
+#     list_answer_question = body_data.get('list_answer_question')
+#     time_remaining = body_data.get('time_remaining')
+
+#     if time_remaining > 0:
+#         for item in list_answer_question:
+#             handle_T = Handle_Test(
+#                 choose_answer=int(item['id_answer']),
+#                 exam_id=int(exam),
+#                 question_id=int(item['id_question']),
+#                 user_id=request.user.id,
+#                 time_remaining=time_remaining,
+#             )
+#             handle_T.save()
+
+#     response = {
+#         'status': 200,
+#         'msg': "Success",
+#     }
+#     return JsonResponse(response)
+
+# Phản hổi
 
 
 def Feedback(request):
@@ -133,6 +163,7 @@ def Feedback(request):
         'batch_notifi': batch_notifi,
     }
     return render(request, 'student/feedback.html', context)
+
 
 # Trang chủ
 
@@ -228,11 +259,11 @@ class JoinTestView(LoginRequiredMixin, View):
             for a in range(len(get_exam)):
                 get_exam[a].stt = a + 1
                 get_exam[a].save()
-        
+
         len_get_exam = len(get_exam)
 
         paginator = Paginator(get_exam, 10)
-        page = request.GET.get('page') 
+        page = request.GET.get('page')
         gets_exams = paginator.get_page(page)
 
         context = {
@@ -240,11 +271,11 @@ class JoinTestView(LoginRequiredMixin, View):
             'get_user_info': get_user_info,
             'menu': menu,
             'active_class': 'join',
-            'notifi': notifi, 
+            'notifi': notifi,
             'len_notifi': len_notifi,
-            'batch_notifi': batch_notifi, 
+            'batch_notifi': batch_notifi,
             'batch_status': batch_true,
-            'len_get_exam':len_get_exam,
+            'len_get_exam': len_get_exam,
             'gets_exams': gets_exams,
         }
         return render(request, 'student/choose-exam.html', context)
@@ -281,9 +312,14 @@ class StartTestView(LoginRequiredMixin, View):
 
         total_question_each_exam = 15
 
-        array_choose_question = [] 
-  
-        # Random câu hỏi 
+        array_choose_question = []
+
+        for batch in Batch.objects.all():
+            if get_exam.batch_id == batch.id:
+                if batch.status == False:
+                    return redirect('/join')
+
+        # Random câu hỏi
         for item_subject in list_subject:
             if get_exam.subject_id == item_subject.id:
                 list_question = Question.objects.filter(
@@ -298,9 +334,9 @@ class StartTestView(LoginRequiredMixin, View):
                                     break
                                 else:
                                     total_question_each_exam += 1
- 
+
         length_array_question = len(array_choose_question)
- 
+
         for item in range(len(array_choose_question)):
             array_choose_question[item].stt = item + 1
             array_choose_question[item].save()
@@ -315,10 +351,10 @@ class StartTestView(LoginRequiredMixin, View):
 
         # random.shuffle(choose_random_answer)
 
-        context = { 
+        context = {
             'get_user': get_user,
             'get_user_info': get_user_info,
-            'menu': menu, 
+            'menu': menu,
             'active_class': 'join',
             'notifi': notifi,
             'len_notifi': len_notifi,
@@ -354,28 +390,28 @@ def CalculatorPoint(request):
 
         key_time = time.mktime(time.localtime())
 
-        if len(list_answer_question) > 0: 
+        if len(list_answer_question) > 0:
             for i in list_answer_question:
                 result = Result(
-                    choose_answer = int(i['value']),
-                    exam_id = int(exam),
-                    question_id = int(i['name']),
-                    user_id = request.user.id,
-                    complete = complete,
-                    key = key_time,
+                    choose_answer=int(i['value']),
+                    exam_id=int(exam),
+                    question_id=int(i['name']),
+                    user_id=request.user.id,
+                    complete=complete,
+                    key=key_time,
                 )
                 result.save()
-                for item_correct_answer in get_correct_answer: 
+                for item_correct_answer in get_correct_answer:
                     if int(i['value']) == item_correct_answer.id:
                         total_question_true += 1
-                  
+
             point = round(((10 / len_total_question) * total_question_true), 2)
-        else: 
-            point = 0 
+        else:
+            point = 0
 
-        rate = str(total_question_true) + '/' + total_question   
+        rate = str(total_question_true) + '/' + total_question
 
-        rank = '' 
+        rank = ''
         if point < 4:
             rank = 'Kém'
         elif 4 <= point < 5:
@@ -383,8 +419,8 @@ def CalculatorPoint(request):
         elif 5 <= point < 5.5:
             rank = 'Trung bình yếu'
         elif 5.5 <= point < 6.5:
-            rank = 'Trung bình' 
-        elif 6.5 <= point < 7: 
+            rank = 'Trung bình'
+        elif 6.5 <= point < 7:
             rank = 'Trung bình khá'
         elif 7 <= point < 8:
             rank = 'Khá'
@@ -394,12 +430,12 @@ def CalculatorPoint(request):
             rank = 'Giỏi'
 
         exam_result = Exam_Result(
-            total_correct_question = rate,
-            point = point,
-            user_id = request.user.id,
-            exam_id = int(exam),
-            rank = rank,
-            date = datetime.now().strftime("%Y-%m-%d %H:%M"),
+            total_correct_question=rate,
+            point=point,
+            user_id=request.user.id,
+            exam_id=int(exam),
+            rank=rank,
+            date=datetime.now().strftime("%Y-%m-%d %H:%M"),
             key=key_time,
         )
         exam_result.save()
@@ -421,7 +457,7 @@ class ResultView(LoginRequiredMixin, View):
         get_user = User.objects.all()
         get_user_info = UserInfo.objects.all()
 
-        check_show_notification() 
+        check_show_notification()
 
         ######################################
         notifi = []
@@ -433,10 +469,11 @@ class ResultView(LoginRequiredMixin, View):
 
         len_notifi = len(notifi)
         ######################################
-        
+
         exams = Exam.objects.all()
 
-        exam_result = Exam_Result.objects.filter(user_id = request.user.id).order_by('-id')
+        exam_result = Exam_Result.objects.filter(
+            user_id=request.user.id).order_by('-id')
 
         len_exam_result = len(exam_result)
 
@@ -448,20 +485,20 @@ class ResultView(LoginRequiredMixin, View):
         page = request.GET.get('page')
         exams_results = paginator.get_page(page)
 
-        context = { 
-            'get_user': get_user, 
+        context = {
+            'get_user': get_user,
             'get_user_info': get_user_info,
-            'menu': menu, 
+            'menu': menu,
             'active_class': 'result',
             'notifi': notifi,
-            'len_notifi': len_notifi, 
+            'len_notifi': len_notifi,
             'batch_notifi': batch_notifi,
-            'exams':exams,
-            'len_exam_result':len_exam_result,
-            'exams_results':exams_results,
+            'exams': exams,
+            'len_exam_result': len_exam_result,
+            'exams_results': exams_results,
         }
         return render(request, 'student/result.html', context)
- 
+
 
 # Chi tiết kết quả thi
 
@@ -482,7 +519,6 @@ def DetailResultView(request, id, key):
 
     len_notifi = len(notifi)
     ######################################
-    
 
     exams = Exam.objects.all()
 
@@ -492,10 +528,10 @@ def DetailResultView(request, id, key):
     get_key_exam_result = key
 
     results = Result.objects.filter(key=key)
-    
+
     answers = Answer.objects.all()
-    
-    correct_answer = Answer.objects.filter(correct_answer = True)
+
+    correct_answer = Answer.objects.filter(correct_answer=True)
 
     for a in range(len(results)):
         results[a].stt = a + 1
@@ -517,23 +553,23 @@ def DetailResultView(request, id, key):
                     OrderedDict.fromkeys(list_answer_false))
 
     get_question = Question.objects.all()
-    
-    context = { 
+
+    context = {
         'get_user': get_user,
         'get_user_info': get_user_info,
-        'menu': menu, 
+        'menu': menu,
         'active_class': 'result',
         'notifi': notifi,
         'len_notifi': len_notifi,
         'batch_notifi': batch_notifi,
-        'results':results,
-        'exams': exams, 
+        'results': results,
+        'exams': exams,
         'exam_result': exam_result,
-        'get_key_exam_result':get_key_exam_result,
+        'get_key_exam_result': get_key_exam_result,
         'answers': answers,
-        'list_answer_true':list_answer_true,
-        'list_answer_false':list_answer_false,
-        'get_question':get_question,
+        'list_answer_true': list_answer_true,
+        'list_answer_false': list_answer_false,
+        'get_question': get_question,
     }
     return render(request, 'student/result-detail.html', context)
 
@@ -547,8 +583,8 @@ class NotificationView(LoginRequiredMixin, View):
     def get(self, request):
         get_user = User.objects.all()
         get_user_info = UserInfo.objects.all()
- 
-        check_show_notification() 
+
+        check_show_notification()
 
         ######################################
         notifi = []
@@ -566,18 +602,18 @@ class NotificationView(LoginRequiredMixin, View):
             batch_notifi[a].save()
 
         paginator = Paginator(batch_notifi, 10)
-        page = request.GET.get('page') 
+        page = request.GET.get('page')
         batchs_notifications = paginator.get_page(page)
 
         context = {
-            'get_user': get_user, 
+            'get_user': get_user,
             'get_user_info': get_user_info,
             'menu': menu,
             'active_class': 'notification',
             'notifi': notifi,
             'len_notifi': len_notifi,
-            'batch_notifi': batch_notifi, 
-            'batchs_notifications':batchs_notifications,
+            'batch_notifi': batch_notifi,
+            'batchs_notifications': batchs_notifications,
         }
 
         return render(request, 'student/notification.html', context)
@@ -592,7 +628,7 @@ def NotificationDetailView(request, slug):
     get_user_info = UserInfo.objects.all()
 
     check_show_notification()
- 
+
     ######################################
     notifi = []
 
@@ -648,7 +684,7 @@ class ProfileView(LoginRequiredMixin, View):
         context = {
             'get_user': get_user,
             'get_user_info': get_user_info,
-            'user':user,
+            'user': user,
             'user_info': user_info,
             'menu': menu,
             'active_class': 'profile',
@@ -686,9 +722,9 @@ class ProfileUpdateView(LoginRequiredMixin, View):
         user_info = UserInfo.objects.get(user=user)
 
         context = {
-            'get_user': get_user, 
+            'get_user': get_user,
             'get_user_info': get_user_info,
-            'user':user,
+            'user': user,
             'user_info': user_info,
             'menu': menu,
             'active_class': 'profile',
@@ -710,7 +746,7 @@ class ProfileUpdateView(LoginRequiredMixin, View):
         address = request.POST.get('address')
         phone_number = request.POST.get('phone_number')
 
-        date = datetime.strptime(birth_day,"%d-%m-%Y") 
+        date = datetime.strptime(birth_day, "%d-%m-%Y")
         birth_day = datetime.strftime(date, "%Y-%m-%d")
 
         user_info.update(
@@ -815,6 +851,10 @@ class ChangePassView(LoginRequiredMixin, View):
         new_pass = request.POST.get('newpass')
         confirm_new_pass = request.POST.get('confirmnewpass')
         user = User.objects.get(username=request.user.username)
+
+        get_user = User.objects.all()
+        get_user_info = UserInfo.objects.all()
+
         if user.check_password(old_pass):
             if new_pass == confirm_new_pass:
                 user.set_password(new_pass)
@@ -823,12 +863,13 @@ class ChangePassView(LoginRequiredMixin, View):
             else:
                 errors = 'Xác nhận mật khẩu không chính xác !!!'
                 return render(request, 'student/changepassword.html', {
+                    'get_user': get_user,
+                    'get_user_info': get_user_info,
                     'errors': errors,
                     'menu': menu
                 })
+
         errors = 'Mật khẩu cũ không chính xác !!!'
-        get_user = User.objects.all()
-        get_user_info = UserInfo.objects.all()
         return render(request, 'student/changepassword.html', {
             'get_user': get_user,
             'get_user_info': get_user_info,
@@ -899,7 +940,7 @@ class RegisterView(View):
                 phone_number = form.cleaned_data['phone_number']
                 address = form.cleaned_data['address']
 
-                date = datetime.strptime(birth_day,"%d-%m-%Y") 
+                date = datetime.strptime(birth_day, "%d-%m-%Y")
                 birth_day = datetime.strftime(date, "%Y-%m-%d")
 
                 user = User.objects.filter(username=username)
@@ -951,7 +992,7 @@ class ForgotPasswordView(View):
                 get_email = User.objects.get(username=username).email
                 if get_email == email:
                     new_password = randomString(10)
- 
+
                     subject = 'ExamSoftware xin chào bạn !'
                     from_email = settings.EMAIL_HOST_USER
                     to_list = [get_email]
@@ -961,7 +1002,7 @@ class ForgotPasswordView(View):
                     send_mail(
                         subject,
                         message,
-                        from_email, 
+                        from_email,
                         to_list,
                         fail_silently=False)
 
