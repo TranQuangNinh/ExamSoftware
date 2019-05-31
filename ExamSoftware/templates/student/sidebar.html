@@ -48,17 +48,52 @@
         </li>
         {% endfor %}
 
-        <li class="nav-item d-xl-none d-inline-block">
+        {% if request.user.id %}
+
+        {% for item_user in get_user %}
+
+        {% if request.user.id == item_user.id %}
+
+        {% for item_user_info in get_user_info %}
+
+        {% if item_user_info.user_id == item_user.id %}
+        <li class="nav-item d-lg-none d-inline-block">
             <a class="nav-link" href="{% url 'student:change_pass' %}">
                 <i class="menu-icon mdi mdi-key-variant"></i>
                 <span class="menu-title">Đổi mật khẩu</span>
             </a>
         </li>
-        <li class="nav-item d-xl-none d-inline-block">
+        <li class="nav-item d-lg-none d-inline-block">
             <a class="nav-link" href="{% url 'student:logout' %}">
                 <i class="menu-icon mdi mdi-logout"></i>
                 <span class="menu-title">Đăng xuất</span>
             </a>
         </li>
+        {% else %}
+
+        {% endif %}
+
+        {% endfor %}
+
+        {% endif %}
+
+        {% endfor %}
+
+        {% else %}
+        <li class="nav-item d-lg-none d-inline-block">
+            <a class="nav-link" href="{% url 'student:login' %}">
+                <i class="menu-icon mdi mdi-logout"></i>
+                <span class="menu-title">Đăng nhập</span>
+            </a>
+        </li>
+        <li class="nav-item d-lg-none d-inline-block">
+            <a class="nav-link" href="{% url 'student:register' %}">
+                <i class="menu-icon mdi mdi-account-plus"></i>
+                <span class="menu-title">Đăng ký</span>
+            </a>
+        </li>
+        {% endif %}
+
+
     </ul>
 </nav>

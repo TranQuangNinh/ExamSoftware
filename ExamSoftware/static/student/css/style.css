@@ -16122,6 +16122,7 @@ ul li {
 .nav .nav-item.dropdown .count-indicator .count,
 .navbar-nav .nav-item.dropdown .count-indicator .count {
     position: absolute;
+    top: 0;
     left: 50%;
     display: flex;
     align-items: center;
@@ -16132,7 +16133,6 @@ ul li {
     background: #FF0017;
     color: #ffffff;
     font-size: 11px;
-    top: 0;
     font-weight: 600;
     line-height: 1rem;
     border: none;

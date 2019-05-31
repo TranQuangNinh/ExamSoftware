@@ -7,6 +7,13 @@ Tham gia thi
 
 
 {% block content %}
+{% if messages %}
+{% for message in messages %}
+<div class="show_errors student-page ">
+    <p class="errors">{{message}}</p>
+</div>
+{% endfor %}
+{% endif %}
 <div class="card">
     <div class="card-body">
         <div class="page">

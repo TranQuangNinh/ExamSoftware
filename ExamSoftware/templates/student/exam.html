@@ -40,54 +40,54 @@ MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/Taylor.js");
 
 {% block content %}
 
-<!-- <div class=""> -->
-<!-- <p>When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are</p> -->
+<!-- <div class="">
+    <p>When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are</p>
 
-<!-- <p>$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$</p> -->
+    <p>$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$</p>
 
-<!-- <p>$$y = {ax^3 + bx^2 + cx + d \ (a,b,c,d \in \mathbb{R})} $$</p> -->
+    <p>$$y = {ax^3 + bx^2 + cx + d \ (a,b,c,d \in \mathbb{R})} $$</p>
 
-<!-- <p>$${1\over5}$$</p> -->
+    <p>$${1\over5}$$</p>
 
-<!-- <p>$${+\infty}$$</p> -->
+    <p>$${+\infty}$$</p>
 
-<!-- <p>$$( {-1}\ {;}\ {+\infty} )$$</p> -->
+    <p>$$( {-1}\ {;}\ {+\infty} )$$</p>
 
-<!-- <p>$${lim} {1\over 5n +2}$$</p> -->
+    <p>$${lim} {1\over 5n +2}$$</p>
 
-<!-- <p>$${y = 2^x, y = 0, x = 2}$$</p> -->
+    <p>$${y = 2^x, y = 0, x = 2}$$</p>
 
-<!-- <p>$$\{ {-\sqrt{10}}\ {;}\ {\sqrt{10}} \}$$</p> -->
+    <p>$$\{ {-\sqrt{10}}\ {;}\ {\sqrt{10}} \}$$</p>
 
-<!-- <p>$$S=\pi\int\limits_{0}^{2}{2^{2x}dx.}$$</p> -->
+    <p>$$S=\pi\int\limits_{0}^{2}{2^{2x}dx.}$$</p>
 
-<!-- <p>$$y=\ln \left| \cos x \right|$$</p> -->
+    <p>$$y=\ln \left| \cos x \right|$$</p>
 
-<!-- <p>\[ {\log_2} (x^2-1) = 3 \]</p> -->
+    <p>\[ {\log_2} (x^2-1) = 3 \]</p>
 
-<!-- <p>\[ \log(1+h) = \taylorlog{h} \text{ for } |h| \lt 1 \]</p> -->
+    <p>\[ \log(1+h) = \taylorlog{h} \text{ for } |h| \lt 1 \]</p>
 
-<!-- <p>$$y'=\frac{1}{\sqrt{x^2+1}+1}$$</p> -->
+    <p>$$y'=\frac{1}{\sqrt{x^2+1}+1}$$</p>
 
-<!-- <p>$$(Oxyz)$$</p> -->
+    <p>$$(Oxyz)$$</p>
 
-<!-- <p>$$ A({1}\ {;}\ {2}\ {;}\ {-2})$$</p> -->
+    <p>$$ A({1}\ {;}\ {2}\ {;}\ {-2})$$</p>
 
-<!-- <p>$${ \Delta: {{x+1} \over 2}\ {=}\ {{y-1} \over 1}\ {=}\ {{z-3} \over 3} }$$</p> -->
-<!-- </div> -->
+    <p>$${ \Delta: {{x+1} \over 2}\ {=}\ {{y-1} \over 1}\ {=}\ {{z-3} \over 3} }$$</p>
+</div>
 
-<!-- <p>$$y=f(x)=\left\{ \begin{array}{l} \frac{\sqrt{x+3}-\sqrt{5-x}}{{x^2}-1}\,\,\,\,\,khi\,\,\,x\ne 1\,\,\, \\ \sin
-ax\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,khi\,\,\,x=1 \end{array} \right.$$</p> -->
+<p>$$y=f(x)=\left\{ \begin{array}{l} \frac{\sqrt{x+3}-\sqrt{5-x}}{{x^2}-1}\,\,\,\,\,khi\,\,\,x\ne 1\,\,\, \\ \sin
+ax\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,khi\,\,\,x=1 \end{array} \right.$$</p> 
 
-<!-- <p>$$d:\left\{ \begin{array}{l} x = 1 + 3t \\ y = -3 \\ z = 5 + 4t \end{array} \right.$$</p> -->
+<p>$$d:\left\{ \begin{array}{l} x = 1 + 3t \\ y = -3 \\ z = 5 + 4t \end{array} \right.$$</p>
 
-<!-- <p>$$\vec{u}$$</p> -->
+<p>$$\vec{u}$$</p>
 
-<!-- <p>$$\left\{ \begin{array}{l} x = -1 + 2t \\ y = 2 - 5t \\ z = 6 + 11t \end{array} \right.$$</p> -->
+<p>$$\left\{ \begin{array}{l} x = -1 + 2t \\ y = 2 - 5t \\ z = 6 + 11t \end{array} \right.$$</p>
 
-<!-- <p>$$A^{2}_{38}$$</p> -->
+<p>$$A^{2}_{38}$$</p>
 
-<!-- <p>$$45^{\circ}$$</p> -->
+<p>$$45^{\circ}$$</p> -->
 
 <div class="card">
     <div class="card-body">
@@ -97,7 +97,6 @@ ax\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,khi\,\,\,x=1 \end{array} \right.$$</p> -->
             </div>
             <div class="content-page">
                 <div class="QA">
-
                     {% if length_array_question %}
                     <form action="{% url 'student:calculator' %}" id="list_question_answer" method="POST">
                         {% csrf_token %}
@@ -138,6 +137,7 @@ ax\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,khi\,\,\,x=1 \end{array} \right.$$</p> -->
                                 <div class="answer">
                                     <div class="row">
                                         <div class="col-10">
+                                            <!-- choose_random_answer -->
                                             {% for answer in list_answer %}
 
                                             {% if item_question.id == answer.question_id %}
@@ -204,7 +204,7 @@ ax\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,khi\,\,\,x=1 \end{array} \right.$$</p> -->
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <h5 class="title">Thông báo</h5>
+                <h5 class="title">Chúc mừng bạn đã hoàn thành bài thi</h5>
                 <p>Bạn có muốn xem kết quả thi không ?</p>
                 <button id="home_link" class="btn btn-secondary">Trở về trang chủ</button>
                 <button id="result_link" class="btn btn-custom">Có</button>
@@ -223,7 +223,78 @@ ax\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,khi\,\,\,x=1 \end{array} \right.$$</p> -->
     function confirm() {
         $('#submit-form').click();
         $('#confirm-popup').hide();
-    }
+    };
+
+    // function getCookie(name) {
+    //     var cookieValue = null;
+    //     if (document.cookie && document.cookie !== "") {
+    //         var cookies = document.cookie.split(";");
+    //         for (var i = 0; i < cookies.length; i++) {
+    //             var cookie = cookies[i].trim();
+    //             // Does this cookie string begin with the name we want?
+    //             if (cookie.substring(0, name.length + 1) === name + "=") {
+    //                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+    //                 break;
+    //             }
+    //         }
+    //     }
+    //     return cookieValue;
+    // }
+    // var csrftoken = getCookie("csrftoken");
+
+    // function csrfSafeMethod(method) {
+    //     // these HTTP methods do not require CSRF protection
+    //     return /^(GET|HEAD|OPTIONS|TRACE)$/.test(method);
+    // }
+
+    // $.ajaxSetup({
+    //     beforeSend: function (xhr, settings) {
+    //         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+    //             xhr.setRequestHeader("X-CSRFToken", csrftoken);
+    //         }
+    //     }
+    // });
+
+    // var list_answer_question = [];
+    // $(".text_answer").click(function () {
+    //     var value_id_answer = $(this).data("answer_id");
+
+    //     var value_id_question = $(this)
+    //         .parents(".QA-item")
+    //         .find(".question_number")
+    //         .data("question_id");
+
+    //     var filter = list_answer_question.find(
+    //         x => x.id_question == value_id_question
+    //     );
+
+    //     if (filter != undefined) {
+    //         list_answer_question.splice(list_answer_question.indexOf(filter), 1);
+    //     }
+    //     list_answer_question.push({
+    //         id_question: value_id_question,
+    //         id_answer: value_id_answer
+    //     });
+
+    //     console.log(list_answer_question);
+
+    //     data = JSON.stringify({
+    //         "list_answer_question": list_answer_question,
+    //         "exam": $("#id_exam").val(),
+    //         "time_remaining": parseInt($("#total_time_to_do_exam").val()),
+    //     })
+
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: '/handle_test/',
+    //         dataType: "json",
+    //         contentType: "application/json",
+    //         data: data,
+    //         success: function (response) {
+    //             console.log(response);
+    //         },
+    //     });
+    // });
 
 </script>
 {% endblock script %}

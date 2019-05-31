@@ -33,7 +33,7 @@ class LoginForm(forms.Form):
 class RegisterForm(forms.Form):
 
     username = forms.CharField(
-        max_length=50,
+        max_length=32,
         widget=forms.TextInput(attrs={
             'class': "input100",
             'type': "text",
@@ -105,7 +105,7 @@ class RegisterForm(forms.Form):
         username = self.cleaned_data['username']
         if re.search(r'\W', username):
             raise forms.ValidationError(
-                "Tên tài khoản được có ký tự đặc biệt !!!")
+                "Tên tài khoản không được có ký tự đặc biệt !!!")
         try:
             User.objects.get(username=username)
         except ObjectDoesNotExist:

@@ -10,7 +10,6 @@ Trang chủ
 {% if notifi %}
 <div id="notifi-pages" style="margin-bottom: 15px;display: flex;align-items: center;">
     <marquee behavior="" direction="">
-
         {% for item in notifi %}
         <span style="margin-right: 500px;">{{item.content}}</span>
         {% endfor %}
@@ -75,7 +74,7 @@ Trang chủ
                             <tbody>
 
                                 {% for item in remove_duplicate %}
-                                <tr id="row_{{item.id}}" class="page_link" href="{% url 'student:join' %}">
+                                <tr id="row_{{item.id}}">
                                     <td>{{item.stt}}</td>
                                     <td>{{item.subject_name}}</td>
                                 </tr>

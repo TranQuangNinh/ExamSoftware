@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="{% static 'student/vendors/css/vendor.bundle.base.css' %}" />
         <link rel="stylesheet" href="{% static 'student/css/fontawesome.min.css' %}" />
         <link rel="stylesheet" href="{% static 'student/css/style.css' %}" />
+        <link rel="stylesheet" href="{% static 'student/css/errors.css' %}" />
         <link rel="stylesheet" href="{% static 'student/css/main.css' %}" />
         <link rel="icon" href="{% static 'student/images/favicon.png' %}" />
 
@@ -30,7 +31,7 @@
     <!-- oncontextmenu="return false" onselectstart="return false" ondragstart="return false" -->
     <!-- onload="document.'name Form'.submit" -->
 
-    <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+    <body>
         <div class="container-scroller">
             {% include 'student/navbar.html' %}
             <div class="container-fluid page-body-wrapper">
@@ -59,7 +60,15 @@
         <script src="{% static 'student/vendors/js/vendor.bundle.base.js' %}"></script>
         <script src="{% static 'student/js/main.js' %}"></script>
         <script src="{% static 'student/js/disable.js' %}"></script>
-
+        <script>
+            $(window).resize(function () {
+                if ($(this).width() < 1200 && $(this).width() > 991) {
+                    $('.software-name .name').html("Phần mềm thi trắc nghiệm");
+                } else {
+                    $('.software-name .name').html("Đồ án tốt nghiệp - Phần mềm thi trắc nghiệm");
+                }
+            });
+        </script>
         {% block script %}
 
         {% endblock script %}

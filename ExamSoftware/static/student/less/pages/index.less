@@ -71,6 +71,9 @@
 
 .text {
   margin-bottom: 10px;
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .no-data {
@@ -80,14 +83,28 @@
   margin-bottom: 140px;
 }
 
-#student,
-#subject {
-  margin-bottom: 25px;
+#copyRight {
+  .text {
+    display: inline-block;
+    margin-bottom: 0;
+    margin-right: 10px;
+    color: #ff4f4f;
+    &:last-child {
+      margin: 0;
+    }
+  }
 }
 
-@media (min-width: 1199px) {
-  .card {
-    min-height: 570px;
+.card {
+  min-height: 570px;
+}
+
+@media (min-width: 1200px) {
+  #student,
+  #subject {
+    .card {
+      min-height: 550px;
+    }
   }
 }
 
@@ -142,6 +159,22 @@
   }
 }
 
+@media screen and (max-width: 1199px) {
+  #student,
+  #subject {
+    margin-bottom: 15px;
+    .card {
+      min-height: auto;
+    }
+  }
+
+  .software-name {
+    .name {
+      font-size: 18px;
+    }
+  }
+}
+
 @media screen and (max-width: 991px) {
   .logo-book {
     i {
@@ -149,6 +182,11 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+  }
+}
+@media screen and(max-width:575px) {
+  #copyRight {
+    text-align: center;
   }
 }
 
@@ -159,6 +197,24 @@
 }
 
 @media screen and (max-width: 479px) {
+  .navbar {
+    &.default-layout {
+      .navbar-menu-wrapper {
+        .navbar-nav {
+          .nav-item {
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+  .navbar-nav {
+    .nav-item.dropdown {
+      .navbar-dropdown {
+        right: -50px;
+      }
+    }
+  }
   #notification {
     width: 300px;
   }

@@ -6,6 +6,7 @@ from .forms import *
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 from admin_exam.models import *
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import decorators
@@ -154,6 +155,7 @@ def Feedback(request):
 
     len_notifi = len(notifi)
     ######################################
+
     context = {
         'get_user': get_user,
         'get_user_info': get_user_info,
@@ -317,6 +319,7 @@ class StartTestView(LoginRequiredMixin, View):
         for batch in Batch.objects.all():
             if get_exam.batch_id == batch.id:
                 if batch.status == False:
+                    messages.error(request, 'Hiện tại môn này chưa được mở')
                     return redirect('/join')
 
         # Random câu hỏi
